@@ -1,6 +1,4 @@
-package cz.tul.kral.bank.entity;
-
-import java.math.BigDecimal;
+package cz.tul.kral.bank.model;
 
 public class Account {
     private String accountNumber;

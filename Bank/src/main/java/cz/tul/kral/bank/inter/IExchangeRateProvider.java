@@ -1,6 +1,6 @@
-package cz.tul.kral.bank.repository;
+package cz.tul.kral.bank.inter;
 
-import cz.tul.kral.bank.entity.Currency;
+import cz.tul.kral.bank.model.Currency;
 import java.math.BigDecimal;
 
 

@@ -1,9 +1,9 @@
-package cz.tul.kral.bank.entity;
+package cz.tul.kral.bank.model;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import cz.tul.kral.bank.repository.IExchangeRateProvider;
+import cz.tul.kral.bank.inter.IExchangeRateProvider;
 
 public class CentralBankExchangeRateProvider extends IExchangeRateProvider {
     private Map<String, BigDecimal> exchangeRates = new HashMap<>();

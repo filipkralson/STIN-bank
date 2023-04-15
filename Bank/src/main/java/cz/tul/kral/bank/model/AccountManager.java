@@ -1,4 +1,4 @@
-package cz.tul.kral.bank.entity;
+package cz.tul.kral.bank.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
