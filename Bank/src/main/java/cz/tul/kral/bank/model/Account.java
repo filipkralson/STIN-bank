@@ -62,9 +62,4 @@ public class Account {
         }
     }
 
-    public void transfer(Account toAccount, double amount) {
-        withdraw(amount);
-        toAccount.deposit(amount);
-    }
-
 }

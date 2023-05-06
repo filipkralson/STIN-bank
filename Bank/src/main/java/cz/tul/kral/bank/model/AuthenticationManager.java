@@ -10,11 +10,6 @@ public class AuthenticationManager {
     private Map<User, String> passwords = new HashMap<>();
     private Set<User> authenticatedUsers = new HashSet<>();
 
-    public void registerUser(User user, String password) {
-        users.put(user.getEmail(), user);
-        passwords.put(user, password);
-    }
-
     public void authenticateUser(User user, String password, String verificationCode) {
         if (!users.containsValue(user)) {
             throw new IllegalArgumentException("Invalid user");

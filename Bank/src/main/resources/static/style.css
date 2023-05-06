@@ -1,0 +1,42 @@
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form  {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form .odeslat {
+    margin-top: 20px;
+}
+
+footer {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
