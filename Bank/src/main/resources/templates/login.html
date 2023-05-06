@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,13 +17,13 @@
         </ul>
     </nav>
     <main>
-        <form action="">
+        <form action="/login" method="post">
             <fieldset>
-                <legend>Klientské číslo</legend>
+                <label for="clientNum">Klientské číslo:</label>
                 <input type="number" name="clientNum" id="clientNum">
             </fieldset>
             <fieldset>
-                <legend>Heslo</legend>
+                <label for="password">Heslo:</label>
                 <input type="password" name="password" id="password">
             </fieldset>
                 <input class="odeslat" type="submit" name="submit" id="submit">
