@@ -4,30 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <title>NVB - login</title>
+    <link rel="stylesheet" th:href="@{style.css}" />
 </head>
 <body>
     <header>
-        <h1>Online Banking - Naše/Vaše banka :)</h1>
+        <h1>Naše / Vaše Banka</h1>
+        <h2>online bankovnictví</h2>
     </header>
-    <nav>
-        <ul>
-            <li><a href="register.html">Registrace</a></li>
-        </ul>
-    </nav>
     <main>
-        <form action="/login" method="post">
-            <fieldset>
-                <label for="clientNum">Klientské číslo:</label>
-                <input type="number" name="clientNum" id="clientNum">
-            </fieldset>
-            <fieldset>
-                <label for="password">Heslo:</label>
-                <input type="password" name="password" id="password">
-            </fieldset>
+        <div class="login">
+            <h3>Přihlašte se!</h3>
+            <form action="/login" method="post">
+                <fieldset>
+                    <label for="clientNum">Klientské číslo:</label>
+                    <input type="number" name="clientNum" id="clientNum">
+                </fieldset>
+                <fieldset>
+                    <label for="password">Heslo:</label>
+                    <input type="password" name="password" id="password">
+                </fieldset>
                 <input class="odeslat" type="submit" name="submit" id="submit">
-        </form>
+            </form>
+            <span th:text="${warningLogin}"></span>
+            <nav>
+                <ul>
+                    <li>Odkaz pro registraci <a href="/register">zde</a></li>
+                </ul>
+            </nav>
+        </div>
     </main>
     <footer>
         <p>© 2023 Bank</p>

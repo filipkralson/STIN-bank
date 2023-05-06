@@ -1,7 +1,18 @@
+body {
+    margin: 0;
+}
+
 header {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
+    background-color: aliceblue;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
 }
 
 header h1 {
@@ -9,29 +20,82 @@ header h1 {
     font-weight: bold;
 }
 
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    width: 75%;
+    background-color: azure;
+}
+
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    width: 75%;
+    background-color: beige;
+}
+
+.accounts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px 0 0 20px;
+    padding: 40px;
+    background-color: beige;
+}
+
+.accounts-info {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: row;
+}
+
+.accounts-info p{
+    margin-right: 20px;
+}
+
+.side-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px 20px 0 20px;
+    padding: 40px;
+    background-color: beige;
+}
+
 nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    ;
+}
+
+nav li {
+    list-style: none;
+}
+form  {
+    font-family: "Roboto", sans-serif;
+}
+
+form fieldset {
+    margin-top: 5px;
+}
+
+form .odeslat {
+    margin-top: 20px;
 }
 
 main {
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-
-form  {
-    font-family: "Roboto", sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-form .odeslat {
-    margin-top: 20px;
+    margin-bottom: 200px;
 }
 
 footer {

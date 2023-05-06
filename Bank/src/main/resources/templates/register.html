@@ -3,39 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Bank</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <title>NVB - registrace</title>
+    <link rel="stylesheet" th:href="@{style.css}" />
 </head>
 
 <body>
     <header>
-        <h1>Online Banking - Naše/Vaše banka :)</h1>
+        <h1>Naše / Vaše Banka</h1>
+        <h2>online bankovnictví</h2>
     </header>
-    <nav>
-        <ul>
-            <li><a href="login.html">Přihlášení</a></li>
-        </ul>
-    </nav>
     <main>
-        <form action="/register" method="post">
-            <fieldset>
-                <label for="name">Jméno</label>
-                <input type="text" name="name" id="name">
-            </fieldset>
-            <fieldset>
-                <label for="surname">Příjmení</label>
-                <input type="text" name="surname" id="surname">
-            </fieldset>
-            <fieldset>
-                <label for="email">Příjmení</label>
-                <input type="email" name="email" id="email">
-            </fieldset>
-            <fieldset>
-                <label for="password">Heslo</label>
-                <input type="password" name="password" id="password">
-            </fieldset>
+        <div class="register">
+            <h3>Registrujte se!</h3>
+            <form action="/register" method="post">
+                <fieldset>
+                    <label for="name">Jméno</label>
+                    <input type="text" name="name" id="name">
+                </fieldset>
+                <fieldset>
+                    <label for="surname">Příjmení</label>
+                    <input type="text" name="surname" id="surname">
+                </fieldset>
+                <fieldset>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                </fieldset>
+                <fieldset>
+                    <label for="password">Heslo</label>
+                    <input type="password" name="password" id="password">
+                </fieldset>
                 <input class="odeslat" type="submit" name="submit" id="submit">
-        </form>
+            </form>
+            <span th:text="${warningRegister}"></span>
+            <nav>
+                <ul>
+                    <li>Odkaz pro <a href="/login">Přihlášení</a></li>
+                </ul>
+            </nav>
+        </div>
+
     </main>
     <footer>
         <p>© 2023 Bank</p>

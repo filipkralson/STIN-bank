@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
+    <title>NVB - domovská stránka</title>
+    <link rel="stylesheet" th:href="@{style.css}" />
 </head>
 <body>
-    <h1>AHOJ!</h1>
+    <header>
+        <h1>Vítej, <span th:text="${name}"></span> <span th:text="${surname}"></span></h1>
+    </header>
+<main>
+    <div class = "side-info">
+        <h2>Informace</h2>
+        <p>Vaše klientské číslo: <span th:text="${clientNum}"></span></p>
+        <a href="/logout">Odhlásit se</a>
+    </div>
+    <div class = "accounts">
+        <form action="/create-account" method="post">
+            <h2>Kliknutím na tlačítko vytvoříte účet</h2>
+            <button type="submit">Create</button>
+        </form>
+        <div class = "accounts-info">
+            <p>ucty</p>
+            <p>balanc</p>
+            <p>transakce</p>
+        </div>
+    </div>
+
+</main>
+
+
+
+
 </body>
 </html>
