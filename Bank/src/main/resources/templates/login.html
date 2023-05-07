@@ -17,12 +17,12 @@
             <h3>Přihlašte se!</h3>
             <form action="/login" method="post">
                 <fieldset>
-                    <label for="clientNum">Klientské číslo:</label>
-                    <input type="number" name="clientNum" id="clientNum">
+                    <label for="id">Klientské číslo:</label>
+                    <input type="number" name="id" id="id" required>
                 </fieldset>
                 <fieldset>
                     <label for="password">Heslo:</label>
-                    <input type="password" name="password" id="password">
+                    <input type="password" name="password" id="password" required>
                 </fieldset>
                 <input class="odeslat" type="submit" name="submit" id="submit">
             </form>
