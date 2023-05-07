@@ -5,6 +5,11 @@
     <title>NVB - domovská stránka</title>
     <link rel="stylesheet" th:href="@{style.css}" />
 </head>
+<script>
+    function redirectCreateAccount() {
+        window.location.href = '/create-account';
+    }
+</script>
 <body>
     <header>
         <h1>Vítej, <span th:text="${name}"></span> <span th:text="${surname}"></span></h1>
@@ -16,10 +21,8 @@
         <a href="/logout">Odhlásit se</a>
     </div>
     <div class = "accounts">
-        <form action="/create-account" method="post">
-            <h2>Kliknutím na tlačítko vytvoříte účet</h2>
-            <button type="submit">Create</button>
-        </form>
+        <h2>Kliknutím na tlačítko vytvoříte účet</h2>
+        <button onclick="redirectCreateAccount()">Založit</button>
         <div class = "accounts-info">
             <p>ucty</p>
             <p>balanc</p>

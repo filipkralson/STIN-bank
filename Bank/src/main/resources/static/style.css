@@ -88,6 +88,16 @@ form fieldset {
     margin-top: 5px;
 }
 
+.login fieldset label {
+    display: block;
+    float: left;
+}
+
+.login fieldset input {
+    display: block;
+    float: right;
+}
+
 form .odeslat {
     margin-top: 20px;
 }
