@@ -1,9 +1,12 @@
 package cz.tul.kral.bank.model;
 
 import jakarta.persistence.*;
-@Entity
+import jakarta.servlet.http.HttpSession;
+
+@Entity(name = "Users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String firstName;
     private String lastName;

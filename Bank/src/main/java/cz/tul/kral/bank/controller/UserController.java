@@ -5,12 +5,12 @@ import cz.tul.kral.bank.repo.UserRepository;
 import cz.tul.kral.bank.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class UserController {
     @Autowired
     private UserService userService;
@@ -35,11 +35,13 @@ public class UserController {
 
     @PostMapping("/login")
     public String processLogin(@RequestParam("id") int id, @RequestParam("password") String password, Model model, HttpSession session) {
-        User user = userRepository.findById((long) id).orElse(null);
+        User user = userRepository.findById(id);
         if (user == null || !user.getPassword().equals(password)) {
             model.addAttribute("warningLogin","Špatně zadané údaje!");
+        } else {
+            session.setAttribute("user", user);
+            return "redirect:/home";
         }
-        session.setAttribute("user", user);
-        return "redirect:/home";
+        return null;
     }
 }

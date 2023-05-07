@@ -7,19 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.*;
 
 @Controller
 public class BankController {
 
-    private List<User> users = new ArrayList<>();
-
     @GetMapping("/home")
-    public String showHomePage(Model model) {
-        User user = users.get(0);
-        model.addAttribute("name",user.getFirstName());
-        model.addAttribute("surname",user.getLastName());
-        model.addAttribute("clientNum", user.getId());
+    public String showHomePage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("name", user.getFirstName());
+        model.addAttribute("surname", user.getLastName());
+        model.addAttribute("id", user.getId());
         return "home";
     }
 
@@ -36,7 +35,7 @@ public class BankController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("currentUser", null);
+        session.setAttribute("user", null);
         return "redirect:/login";
     }
 }
