@@ -15,7 +15,7 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Account> accounts = new ArrayList<>();
 
     public User() {
@@ -54,11 +54,8 @@ public class User {
         return accounts;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-        for (Account account : accounts) {
-            account.setUser(this);
-        }
+    public void setAccounts(Account account) {
+        this.accounts.add(account);
     }
 
     public String getPassword() {
