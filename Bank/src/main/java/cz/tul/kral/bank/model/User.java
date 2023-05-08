@@ -1,7 +1,9 @@
 package cz.tul.kral.bank.model;
 
 import jakarta.persistence.*;
-import jakarta.servlet.http.HttpSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Users")
 public class User {
@@ -12,6 +14,9 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Account> accounts = new ArrayList<>();
 
     public User() {
 
@@ -43,6 +48,17 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+        for (Account account : accounts) {
+            account.setUser(this);
+        }
     }
 
     public String getPassword() {

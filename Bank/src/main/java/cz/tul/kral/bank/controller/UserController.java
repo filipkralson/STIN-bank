@@ -35,7 +35,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String processLogin(@RequestParam("id") int id, @RequestParam("password") String password, Model model, HttpSession session) {
-        User user = userRepository.findById(id);
+        User user = userService.getUserById(id);
         if (user == null || !user.getPassword().equals(password)) {
             model.addAttribute("warningLogin","Špatně zadané údaje!");
         } else {
