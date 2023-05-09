@@ -17,11 +17,16 @@ public class Account {
     @JoinColumn(referencedColumnName = "id")
     private User user;
 
-    @OneToMany(mappedBy = "???", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Account> transactions = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Transaction> transactions = new ArrayList<>();
 
     public Account() {
 
+    }
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public int getId() {

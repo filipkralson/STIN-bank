@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>NVB - vložit peníze</title>
+    <link rel="stylesheet" th:href="@{style.css}" />
 </head>
 <body>
-
+<h1>Zaplať</h1>
+<form action="/transaction-deposit" method="post">
+  <fieldset>
+    <label for="insert">Hodnota:</label>
+    <input type="number" name="insert" id="insert" required>
+  </fieldset>
+  <input class="odeslat" type="submit" name="submit" id="submit">
+</form>
 </body>
 </html>

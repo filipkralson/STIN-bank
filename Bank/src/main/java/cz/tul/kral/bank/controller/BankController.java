@@ -38,6 +38,11 @@ public class BankController {
         return "login";
     }
 
+    @GetMapping("/verification")
+    public String showVerificationPage() {
+        return "verification";
+    }
+
     @GetMapping("/register")
     public String showRegisterPage() {
         return "register";
@@ -48,6 +53,16 @@ public class BankController {
         HttpSession session = request.getSession();
         session.setAttribute("user", null);
         return "redirect:/login";
+    }
+
+    @GetMapping("/transaction-deposit")
+    public String processDeposit() {
+        return "transaction-deposit";
+    }
+
+    @GetMapping("/transaction-pay")
+    public String processPay() {
+        return "transaction-pay";
     }
 }
 

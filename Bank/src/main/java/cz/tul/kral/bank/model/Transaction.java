@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "Transaction")
+@Entity(name = "Transactions")
 public class Transaction {
 
     @Id
@@ -21,11 +21,13 @@ public class Transaction {
 
     private Date transaction_date;
 
+
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Account account;
 
-    Transaction() {
+    public Transaction() {
 
     }
 
@@ -67,5 +69,9 @@ public class Transaction {
 
     public void setTransaction_date(Date transaction_date) {
         this.transaction_date = transaction_date;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
