@@ -2,6 +2,9 @@ package cz.tul.kral.bank.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "Accounts")
 public class Account {
 
@@ -13,6 +16,9 @@ public class Account {
     @ManyToOne()
     @JoinColumn(referencedColumnName = "id")
     private User user;
+
+    @OneToMany(mappedBy = "???", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Account> transactions = new ArrayList<>();
 
     public Account() {
 
