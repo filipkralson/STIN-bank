@@ -2,9 +2,8 @@ package cz.tul.kral.bank.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 @Entity(name = "Transactions")
 public class Transaction {
@@ -19,7 +18,7 @@ public class Transaction {
 
     private double value;
 
-    private Date transaction_date;
+    private LocalDateTime transaction_date;
 
 
 
@@ -29,6 +28,21 @@ public class Transaction {
 
     public Transaction() {
 
+    }
+
+    public Transaction(String _type, double _value, Account account){
+        this.type = _type;
+        this.value = _value;
+        this.account = account;
+        this.transaction_date = LocalDateTime.now();
+    }
+
+    public Transaction(String _type, double _value, int _recipient_account, Account account){
+        this.type = _type;
+        this.value = _value;
+        this.recipient_account = _recipient_account;
+        this.account = account;
+        this.transaction_date = LocalDateTime.now();
     }
 
     public int getId() {
@@ -47,7 +61,7 @@ public class Transaction {
         return value;
     }
 
-    public Date getTransaction_date() {
+    public LocalDateTime getTransaction_date() {
         return transaction_date;
     }
 
@@ -67,7 +81,7 @@ public class Transaction {
         this.value = value;
     }
 
-    public void setTransaction_date(Date transaction_date) {
+    public void setTransaction_date(LocalDateTime transaction_date) {
         this.transaction_date = transaction_date;
     }
 

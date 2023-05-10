@@ -6,6 +6,16 @@
     <link rel="stylesheet" th:href="@{style.css}" />
 </head>
 <body>
-
+<form action="/transaction-pay" method="post">
+    <fieldset>
+        <label for="insert">Hodnota:</label>
+        <input type="number" name="insert" id="insert" required>
+    </fieldset>
+    <fieldset>
+        <label for="recipient_account">Účet příjemce:</label>
+        <input type="number" name="recipient_account" id="recipient_account" required>
+    </fieldset>
+    <input class="odeslat" type="submit" name="submit" id="submit">
+</form>
 </body>
 </html>

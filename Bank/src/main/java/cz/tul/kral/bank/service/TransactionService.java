@@ -13,8 +13,8 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    public Transaction createUser(Transaction transaction) {
-        return transactionRepository.save(transaction);
+    public void createTransaction(Transaction transaction) {
+        transactionRepository.save(transaction);
     }
 
     public Transaction getTransactionById(int transactionId) {

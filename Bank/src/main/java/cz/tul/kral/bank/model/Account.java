@@ -17,8 +17,6 @@ public class Account {
     @JoinColumn(referencedColumnName = "id")
     private User user;
 
-
-
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 
@@ -27,6 +25,10 @@ public class Account {
     }
     public List<Transaction> getTransactions() {
         return transactions;
+    }
+
+    public void setTransactions(Transaction transaction){
+        this.transactions.add(transaction);
     }
 
     public int getId() {
@@ -54,7 +56,16 @@ public class Account {
     }
 
     public void setBalance(double _balance) {
-        this.balance = _balance;
+        this.balance += _balance;
+    }
+
+    public Boolean pay(double amount){
+        if((this.balance - amount) >= 0){
+            this.balance -= amount;
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
