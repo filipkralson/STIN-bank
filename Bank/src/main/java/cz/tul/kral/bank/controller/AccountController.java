@@ -4,6 +4,7 @@ import cz.tul.kral.bank.model.Account;
 import cz.tul.kral.bank.model.User;
 import cz.tul.kral.bank.repo.AccountRepository;
 import cz.tul.kral.bank.repo.UserRepository;
+import cz.tul.kral.bank.service.AccountService;
 import cz.tul.kral.bank.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AccountController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
     private UserService userService;
 
@@ -29,7 +30,7 @@ public class AccountController {
         if (user != null) {
             accountNew.setUser(user);
             user.setAccounts(accountNew);
-            accountRepository.save(accountNew);
+            accountService.createAccount(accountNew);
             userService.createUser(user);
             return "redirect:/home";
         }

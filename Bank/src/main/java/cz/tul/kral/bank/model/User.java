@@ -7,6 +7,9 @@ import java.util.List;
 
 @Entity(name = "Users")
 public class User {
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -65,5 +68,14 @@ public class User {
     public void setPassword(String _password) {
         this.password = _password;
     }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
 

@@ -57,6 +57,10 @@ public class Transaction {
         return recipient_account;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
     public double getValue() {
         return value;
     }

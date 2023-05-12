@@ -15,7 +15,7 @@
         <p>Vaše klientské číslo: <span th:text="${id}"></span></p>
         <a href="/logout">Odhlásit se</a>
     </div>
-     <div class = "accounts">
+    <div class = "accounts">
             <h2>Kliknutím na tlačítko vytvoříte účet</h2>
             <a href="/createAcc"><button>Založit</button></a>
             <div th:each="ucet : ${ucty}" class="accounts-info">

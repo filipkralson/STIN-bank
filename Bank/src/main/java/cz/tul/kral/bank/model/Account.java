@@ -1,7 +1,6 @@
 package cz.tul.kral.bank.model;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +19,27 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 
+
+    public Account(int id) {
+        this.id = id;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Account() {
 
+    }
+
+    public Account(int id, String currency, double balance) {
+        this.id = id;
+        this.currency = currency;
+        this.balance = balance;
     }
     public List<Transaction> getTransactions() {
         return transactions;

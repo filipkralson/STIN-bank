@@ -66,4 +66,12 @@ public class TransactionController {
         session.setAttribute("idUcet", id);
         return "redirect:/transactions";
     }
+
+    public void setAccountService(AccountService _accountService) {
+        accountService = _accountService;
+    }
+
+    public void setTransactionService(TransactionService _transactionService) {
+        transactionService = _transactionService;
+    }
 }
