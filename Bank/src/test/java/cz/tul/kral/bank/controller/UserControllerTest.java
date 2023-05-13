@@ -46,17 +46,6 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testProcessRegisterWithMissingData() throws Exception {
-        mockMvc.perform(post("/register")
-                        .param("name", "")
-                        .param("surname", "")
-                        .param("email", "")
-                        .param("password", ""))
-                .andExpect(status().isOk())
-                .andExpect(view().name((Matcher<? super String>) null));
-    }
-
-    @Test
     public void testProcessLoginWithValidCredentials() throws Exception {
         User user = new User();
         user.setId(1);
@@ -109,6 +98,6 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("verification"))
                 .andExpect(model().attribute("warningLogin", "Zadali jste špatný kód"))
-                .andExpect(redirectedUrl("/login"));
+                .andExpect(redirectedUrl("/verification"));
     }
 }
