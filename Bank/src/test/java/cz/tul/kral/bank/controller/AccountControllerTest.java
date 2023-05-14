@@ -37,17 +37,14 @@ class AccountControllerTest {
 
     @Test
     void testProcessCreateAccount() {
-        // Arrange
         String currency = "USD";
         User user = new User();
         user.setId(1);
         when(session.getAttribute("user")).thenReturn("1");
         when(userService.getUserById(1)).thenReturn(user);
 
-        // Act
         String result = accountController.processCreateAccount(currency, session);
 
-        // Assert
         assertNotNull(result);
         assertEquals("redirect:/home", result);
         verify(userService, times(1)).getUserById(1);

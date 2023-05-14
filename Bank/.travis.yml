@@ -1,0 +1,8 @@
+language: java
+jdk:
+  - openjdk17
+
+script: ./mvnw clean install
+
+notifications:
+  email: filip.kral1@tul.cz
