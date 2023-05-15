@@ -37,7 +37,6 @@ class TransactionControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    /*
     @Test
     void deposit() throws Exception {
         MockHttpSession mockSession = new MockHttpSession();
@@ -49,10 +48,7 @@ class TransactionControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/home"));
     }
-     */
 
-
-    /*
     @Test
     void pay() throws Exception {
         mockMvc.perform(post("/transaction-pay")
@@ -62,8 +58,6 @@ class TransactionControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/home"));
     }
-     */
-
 
     @Test
     void processTransactionDeposit() throws Exception {
