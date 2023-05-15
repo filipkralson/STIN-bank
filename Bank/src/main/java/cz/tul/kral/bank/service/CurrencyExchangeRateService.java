@@ -39,16 +39,12 @@ public class CurrencyExchangeRateService {
         URL url = new URL(CNB_URL);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
             String line;
-            boolean headerProcessed = false;
+            reader.readLine();
+            reader.readLine();
             List<CurrencyExchangeRate> tempExchangeRates = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
-                if (!headerProcessed) {
-                    headerProcessed = true;
-                    continue;
-                }
                 String[] columns = line.split("\\|");
                 CurrencyExchangeRate exchangeRate = new CurrencyExchangeRate();
-                exchangeRate.setCurrency(columns[1]);
                 exchangeRate.setAmount(Integer.parseInt(columns[2]));
                 exchangeRate.setCurrencyCode(columns[3]);
                 exchangeRate.setExchangeRate(DECIMAL_FORMAT.parse(columns[4]).doubleValue());
@@ -59,16 +55,12 @@ public class CurrencyExchangeRateService {
         }
     }
 
-    public List<CurrencyExchangeRate> getExchangeRates() {
+    public List<CurrencyExchangeRate> getExchangeRates() throws IOException, ParseException {
         return exchangeRates;
     }
 
     public CurrencyExchangeRate getExchangeRateByCode(String code) {
         return exchangeRates.stream().filter(rate -> rate.getCurrencyCode().equals(code)).findFirst().orElse(null);
-    }
-
-    public CurrencyExchangeRate getExchangeRateByCurrency(String currency) {
-        return exchangeRates.stream().filter(rate -> rate.getCurrency().equals(currency)).findFirst().orElse(null);
     }
 
     public Date getLastUpdated() {

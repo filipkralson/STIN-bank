@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.io.IOException;
+import java.text.ParseException;
 
 @Controller
 public class CurrencyExchangeRateController {
@@ -22,15 +23,13 @@ public class CurrencyExchangeRateController {
     }
 
     @GetMapping("/currencies")
-    public void getCurrencies(Model model) {
+    public void getCurrencies(Model model) throws IOException, ParseException {
         model.addAttribute("currencies", currencyExchangeRateService.getExchangeRates());
     }
 
-    /*
     @PostMapping("/transaction-deposit")
     public CurrencyExchangeRate getCurrencyByCode(@RequestParam String code) {
         return currencyExchangeRateService.getExchangeRateByCode(code);
     }
-    */
 
 }

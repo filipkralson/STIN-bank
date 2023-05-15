@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 
 public class CurrencyExchangeRate {
 
-
-    private String currency;
     private double exchangeRate;
 
     private String currencyCode;
@@ -39,12 +37,10 @@ public class CurrencyExchangeRate {
         this.amount = i;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    @Override
+    public String toString() {
+        return String.format(" %d %s %.2f\n", this.amount, this.currencyCode, this.exchangeRate);
     }
 }
 
