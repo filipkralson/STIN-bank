@@ -14,7 +14,7 @@
 	<name>bank</name>
 	<description>Online banking application</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>17</java.version>git 
 	</properties>
 	<dependencies>
 		<dependency>
