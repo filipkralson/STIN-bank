@@ -20,14 +20,12 @@ public class Transaction {
 
     private LocalDateTime transaction_date;
 
-
-
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Account account;
 
     public Transaction() {
-
+        this.transaction_date = LocalDateTime.now();
     }
 
     public Transaction(String _type, double _value, Account account){

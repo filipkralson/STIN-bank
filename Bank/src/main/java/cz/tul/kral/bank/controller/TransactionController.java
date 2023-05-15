@@ -1,8 +1,10 @@
 package cz.tul.kral.bank.controller;
 
 import cz.tul.kral.bank.model.Account;
+import cz.tul.kral.bank.model.CurrencyExchangeRate;
 import cz.tul.kral.bank.model.Transaction;
 import cz.tul.kral.bank.service.AccountService;
+import cz.tul.kral.bank.service.CurrencyExchangeRateService;
 import cz.tul.kral.bank.service.TransactionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,26 @@ public class TransactionController {
     private TransactionService transactionService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private CurrencyExchangeRateService currencyExchangeRateService;
 
     @PostMapping("/transaction-deposit")
-    public String deposit(@RequestParam("insert") double insert, HttpSession session) {
+    public String deposit(@RequestParam("insert") double insert, @RequestParam("currency") String currency, HttpSession session) {
         int id = Integer.parseInt((String) session.getAttribute("idUcet"));
+        double newBalance = 0;
         Account account = accountService.getAccountById(id);
-        Transaction transaction = new Transaction("Vklad", insert, account);
-        account.setBalance(insert);
+        Transaction transaction = new Transaction();
+        transaction.setType("Vklad");
+        transaction.setAccount(account);
+        CurrencyExchangeRate currencyExchangeRate = currencyExchangeRateService.getExchangeRateByCode(currency);
+        if(account.getCurrency().equals(currencyExchangeRate.getCurrencyCode())) {
+            transaction.setValue(insert);
+            account.setBalance(insert);
+            account.setTransactions(transaction);
+        }
+        newBalance = insert / currencyExchangeRate.getExchangeRate();
+        transaction.setValue(newBalance);
+        account.setBalance(newBalance);
         account.setTransactions(transaction);
         transactionService.createTransaction(transaction);
         accountService.createAccount(account);
@@ -33,21 +48,33 @@ public class TransactionController {
     }
 
     @PostMapping("/transaction-pay")
-    public String pay(@RequestParam("insert") double amount, @RequestParam("recipient_account") String recipient_account,HttpSession session, Model model){
+    public String pay(@RequestParam("insert") double amount, @RequestParam("currency") String currency, @RequestParam("recipient_account") String recipient_account,HttpSession session, Model model){
         int id = Integer.parseInt((String) session.getAttribute("idUcet"));
         Account account = accountService.getAccountById(id);
-        Transaction transaction = new Transaction("Platba", amount, Integer.parseInt(recipient_account),account);
-        if(!account.pay(amount)){
-            model.addAttribute("money", "Na účtu není dostatek peněz.");
-            return "transaction-pay";
-        }else {
+        double newAmount = 0;
+        Transaction transaction = new Transaction();
+        transaction.setType("Platba");
+        transaction.setRecipient_account(Integer.parseInt(recipient_account));
+        transaction.setAccount(account);
+        CurrencyExchangeRate currencyExchangeRate = currencyExchangeRateService.getExchangeRateByCode(currency);
+        if(account.getCurrency().equals(currencyExchangeRate.getCurrencyCode())) {
+            if(!account.pay(amount)) {
+                model.addAttribute("money", "Na účtu není dostatek peněz.");
+                return "transaction-pay";
+            }
+            transaction.setValue(amount);
+            account.pay(amount);
             account.setTransactions(transaction);
-            transactionService.createTransaction(transaction);
-            accountService.createAccount(account);
-            session.removeAttribute("idUcet");
-            return "redirect:/home";
         }
-    }
+        newAmount = amount * currencyExchangeRate.getExchangeRate();
+        transaction.setValue(newAmount);
+        account.pay(newAmount);
+        account.setTransactions(transaction);
+        transactionService.createTransaction(transaction);
+        accountService.createAccount(account);
+        session.removeAttribute("idUcet");
+        return "redirect:/home";
+        }
 
     @PostMapping("/deposit")
     public String processTransactionDeposit(@RequestParam("idUcet") String id, HttpSession session){

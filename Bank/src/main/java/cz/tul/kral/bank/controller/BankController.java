@@ -3,6 +3,7 @@ package cz.tul.kral.bank.controller;
 import cz.tul.kral.bank.model.Account;
 import cz.tul.kral.bank.model.User;
 import cz.tul.kral.bank.service.AccountService;
+import cz.tul.kral.bank.service.CurrencyExchangeRateService;
 import cz.tul.kral.bank.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 @Controller
 public class BankController {
 
@@ -18,10 +22,13 @@ public class BankController {
     private AccountService accountService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CurrencyExchangeRateService currencyExchangeRateService;
 
     @GetMapping("/home")
-    public String showHomePage(Model model, HttpSession session) {
+    public String showHomePage(Model model, HttpSession session) throws IOException, ParseException {
         User user = userService.getUserById(Integer.parseInt(session.getAttribute("user").toString()));
+        currencyExchangeRateService.updateExchangeRates();
         model.addAttribute("name", user.getFirstName());
         model.addAttribute("surname", user.getLastName());
         model.addAttribute("id", user.getId());
