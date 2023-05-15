@@ -1,0 +1,14 @@
+language: java
+jdk:
+  - openjdk17
+
+script: cd Bank | ./mvnw clean install
+
+notifications:
+  email: filip.kral1@tul.cz
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+before_script:
+  - pip install --user codecov
