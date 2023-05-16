@@ -32,8 +32,13 @@ public class BankController {
         model.addAttribute("name", user.getFirstName());
         model.addAttribute("surname", user.getLastName());
         model.addAttribute("id", user.getId());
-        model.addAttribute("ucty", user.getAccounts());
+        model.addAttribute("accounts", user.getAccounts());
         return "home";
+    }
+
+    @GetMapping("/")
+    public String showLoginPageRedirect() {
+        return "redirect:/login";
     }
 
     @GetMapping("/create-account")
@@ -80,11 +85,16 @@ public class BankController {
 
     @GetMapping("/transactions")
     public String showLogPage(HttpSession session, Model model){
-        int id = Integer.parseInt(session.getAttribute("idUcet").toString());
+        int id = Integer.parseInt(session.getAttribute("idAcc").toString());
         Account account = accountService.getAccountById(id);
-        model.addAttribute("cisloUctu", id);
+        model.addAttribute("accNum", id);
         model.addAttribute("transactions", account.getTransactions());
         return "transactions";
+    }
+
+    @GetMapping("/back")
+    public String showBack() {
+        return "redirect:/home";
     }
 
 }

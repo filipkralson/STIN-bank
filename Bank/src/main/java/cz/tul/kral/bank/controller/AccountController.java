@@ -2,8 +2,6 @@ package cz.tul.kral.bank.controller;
 
 import cz.tul.kral.bank.model.Account;
 import cz.tul.kral.bank.model.User;
-import cz.tul.kral.bank.repo.AccountRepository;
-import cz.tul.kral.bank.repo.UserRepository;
 import cz.tul.kral.bank.service.AccountService;
 import cz.tul.kral.bank.service.UserService;
 import jakarta.servlet.http.HttpSession;

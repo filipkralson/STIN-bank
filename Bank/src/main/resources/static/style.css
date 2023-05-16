@@ -1,155 +1,231 @@
 body {
     margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #ffffff;
+}
+
+.logo {
+    margin-top: 5px;
+    width: 100px;
+    /* Další styly */
 }
 
 header {
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
-    background-color: aliceblue;
+    flex-direction: column;
+    height: 200px;
+    background: #003F91;
 }
 
-h1 {
-    font-family: 'Roboto', sans-serif;
+.form-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 5%;
+    background: #E5F4E3;
+    border-radius: 16px;
+    color: #010101;
+}
+
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px 24px;
+    gap: 16px;
+    text-align: center;
+}
+
+/*Form text*/
+.title {
     font-weight: bold;
+    font-size: 1.6rem;
 }
 
-header h1 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+.subtitle {
+    font-size: 1rem;
+    color: #666;
 }
 
-.login {
+/*Inputs box*/
+.form-container {
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #fff;
+    margin: 1rem 0 .5rem;
+    width: 100%;
+}
+
+.form-containerAcc {
+    overflow: hidden;
+    border-radius: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #caeec8;
+    margin: 1rem 0 .5rem;
+    width: 100%;
+}
+
+.transactions {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
-    margin-top: 50px;
-    width: 75%;
-    background-color: azure;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    background: #E5F4E3;
+    border-radius: 16px;
+    color: #010101;
 }
 
-.register {
+.center {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 50px;
-    width: 75%;
-    background-color: beige;
-}
-
-.accounts {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 50px 0 0 20px;
-    padding: 40px;
-    background-color: beige;
-}
-
-.accounts-info {
-    display: flex;
-    justify-content: left;
-    align-items: center;
     flex-direction: row;
-}
-
-.account-currency {
-    margin-right: 50px;
-}
-
-.account-h2 {
-    margin-right: 25px;
-}
-
-.account-form {
-    margin-right: 25px;
 }
 
 .side-info {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
-    margin: 50px 20px 0 20px;
-    padding: 40px;
-    background-color: beige;
+    margin-right: 2%;
+    margin-top: 5%;
+    padding: 32px 24px 24px;
+    background: #6d326d;
+    border-radius: 16px;
+    color: #ffffff;
 }
 
-nav {
+.accounts {
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    margin-top: 5%;
+    background: #5DA9E9;
+    padding: 32px 24px 24px;
+    border-radius: 16px;
+    color: #010101;
 }
 
-nav li {
-    list-style: none;
-}
-form  {
-    font-family: "Roboto", sans-serif;
+.accounts h2 {
+    text-align: center;
 }
 
-form fieldset {
-    margin-top: 5px;
-}
-
-.login fieldset label {
-    display: block;
-    float: left;
-}
-
-.login fieldset input {
-    display: block;
-    float: right;
-}
-
-form .odeslat {
-    margin-top: 20px;
-}
-
-main {
+.accounts-info {
     display: flex;
     justify-content: center;
-    margin-bottom: 200px;
+    flex-direction: row;
+    margin-top: 5%;
+    background: #5DA9E9;
+    padding: 32px 24px 24px;
+    border-radius: 16px;
+    color: #010101;
 }
 
-footer {
-    font-family: "Roboto", sans-serif;
+.accounts-buttons {
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    margin-top: 5%;
+    margin-right: 15px;
+    background: #5DA9E9;
+    padding: 32px 24px 24px;
+    border-radius: 16px;
+    color: #010101;
 }
 
-.button-home-form {
-    --c:  #4bbd50;
+.accounts a {
+    text-align: center;
+}
 
-    box-shadow: 0 0 0 .1em inset var(--c);
-    --_g: linear-gradient(var(--c) 0 0) no-repeat;
-    background:
-            var(--_g) calc(var(--_p,0%) - 100%) 0%,
-            var(--_g) calc(200% - var(--_p,0%)) 0%,
-            var(--_g) calc(var(--_p,0%) - 100%) 100%,
-            var(--_g) calc(200% - var(--_p,0%)) 100%;
-    background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
-    outline-offset: .1em;
-    transition: background-size .4s, background-position 0s .4s;
-    font-family: system-ui, sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: .3em .6em;
+.transactions a {
+    margin-top: 75px;
+    text-align: center;
+}
+
+.transactions h1 {
+    text-align: center;
+}
+
+.input {
+    background: #fff;
+    border: 0;
+    outline: 0;
+    height: 40px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    font-size: .9rem;
+    padding: 8px 15px;
+}
+
+.form-section select{
+    padding: 16px;
+    font-size: .85rem;
+    background-color: #b7c6b5;
+    box-shadow: rgb(0 0 0 / 8%) 0 -1px;
+}
+
+.form-section a {
     font-weight: bold;
-    border: none;
-
+    color: #0066ff;
+    transition: color .3s ease;
 }
-.button-home-form:hover {
-     --_p: 100%;
-     transition: background-position .4s, background-size 0s;
- }
-.button-home-form:active {
-    box-shadow: 0 0 9px inset #0009;
-    background-color: var(--c);
+
+.form-section a:hover {
+    color: #005ce6;
+    text-decoration: underline;
+}
+
+/*Button*/
+.submit {
+    background-color: #5DA9E9;
     color: #fff;
+    border: 0;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .3s ease;
+}
+
+.buttonRegular {
+    background-color: #caeec8;
+    color: #010101;
+    border: 0;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .3s ease;
+}
+
+.buttonRegular:hover {
+    background-color: #b7c6b5;
+}
+
+.submit:hover {
+    background-color: #005ce6;
+}
+
+.submitBack {
+    background-color: #8ab7e7;
+    color: #fff;
+    border: 0;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .3s ease;
+}
+
+.submitBack:hover {
+    background-color: #6D326D;
 }

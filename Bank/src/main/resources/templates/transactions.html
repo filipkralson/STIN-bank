@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>NVB - seznam transakcí</title>
-    <link rel="stylesheet" th:href="@{style.css}" />
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
+<header>
+    <img src="/logo.png" alt="logo" class="logo">
+    <h2>online bankovnictví</h2>
+</header>
 <main>
-    <h1>Výpis účtu</h1>
-    <h2 th:text="${'Číslo účtu: ' + cisloUctu}"></h2>
-    <table>
-        <tr>
-            <th>Typ</th>
-            <th>Částka</th>
-            <th>Datum</th>
-            <th>Příjemce</th>
-        </tr>
-        <tr th:each="transaction : ${transactions}">
-            <td th:text="${transaction.type}"></td>
-            <td th:text="${transaction.value}"></td>
-            <td th:text="${transaction.transaction_date}"></td>
-            <td th:text="${transaction.recipient_account}"></td>
-        </tr>
-    </table>
-    <a href="/zavrit"><button>Zavřít</button></a>
+        <div class="transactions">
+            <h1>Seznam transakcí</h1>
+            <h2 th:text="${'Váš účet číslo: ' + accNum}"></h2>
+            <table>
+                <tr>
+                    <th>Datum</th>
+                    <th>Příjemce</th>
+                    <th>Typ</th>
+                    <th>Částka</th>
+                </tr>
+                <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.transaction_date}"></td>
+                    <td th:text="${transaction.recipient_account}"></td>
+                    <td th:text="${transaction.type}"></td>
+                    <td th:text="${transaction.value}"></td>
+                </tr>
+            </table>
+        <a href="/back"><button class="submitBack">Zpět</button></a>
+    </div>
 </main>
 </body>
 </html>

@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class CurrencyExchangeRate {
 
     private double exchangeRate;
-
     private String currencyCode;
     private int amount;
 
@@ -37,10 +36,5 @@ public class CurrencyExchangeRate {
         this.amount = i;
     }
 
-
-    @Override
-    public String toString() {
-        return String.format(" %d %s %.2f\n", this.amount, this.currencyCode, this.exchangeRate);
-    }
 }
 

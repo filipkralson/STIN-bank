@@ -59,8 +59,13 @@ public class CurrencyExchangeRateService {
         return exchangeRates;
     }
 
-    public CurrencyExchangeRate getExchangeRateByCode(String code) {
-        return exchangeRates.stream().filter(rate -> rate.getCurrencyCode().equals(code)).findFirst().orElse(null);
+    public CurrencyExchangeRate getExchangeRateByCode(String code){
+        for (CurrencyExchangeRate rate : exchangeRates) {
+            if (rate.getCurrencyCode().equalsIgnoreCase(code)) {
+                return rate;
+            }
+        }
+        return null;
     }
 
     public Date getLastUpdated() {

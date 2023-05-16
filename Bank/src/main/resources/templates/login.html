@@ -4,38 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NVB - login</title>
-    <link rel="stylesheet" th:href="@{style.css}" />
+    <title>NVB - přihlášení</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
     <header>
-        <h1>Naše / Vaše Banka</h1>
+        <img src="/logo.png" alt="logo" class="logo">
         <h2>online bankovnictví</h2>
     </header>
     <main>
-        <div class="login">
-            <h3>Přihlašte se!</h3>
-            <form action="/login" method="post">
-                <fieldset>
-                    <label for="id">Klientské číslo:</label>
-                    <input type="number" name="id" id="id" required>
-                </fieldset>
-                <fieldset>
-                    <label for="password">Heslo:</label>
-                    <input type="password" name="password" id="password" required>
-                </fieldset>
-                <input class="odeslat" type="submit" name="submit" id="submit">
+        <div class="form-box">
+            <form class="form" action="/login" method="post">
+                <span class="title">Přihlásit se</span>
+                <div class="form-container">
+                    <input type="number" class="input" name="id" id="id" placeholder="Klientské číslo" required>
+                    <input type="password" class="input" placeholder="Heslo" name="password" id="password">
+                </div>
+                <input class="submit" type="submit" name="submit" id="submit" value="Přihlásit">
             </form>
+            <div class="form-section">
+                <p>Ještě nemáte účet? <a href="/register">Zaregistrovat se</a> </p>
+            </div>
             <span th:text="${warningLogin}"></span>
-            <nav>
-                <ul>
-                    <li>Odkaz pro registraci <a href="/register">zde</a></li>
-                </ul>
-            </nav>
         </div>
     </main>
-    <footer>
-        <p>© 2023 Bank</p>
-    </footer>
 </body>
 </html>

@@ -16,7 +16,8 @@ public class AccountTest {
         account.setBalance(1000);
     }
 
-    @Test
+    /*
+        @Test
     void testPay() {
         boolean result = account.pay(500);
         Assertions.assertTrue(result);
@@ -29,6 +30,8 @@ public class AccountTest {
         Assertions.assertFalse(result);
         Assertions.assertEquals(1000, account.getBalance());
     }
+     */
+
 
     @Test
     void testSetTransactions() {

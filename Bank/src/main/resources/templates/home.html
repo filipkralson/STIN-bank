@@ -3,38 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>NVB - domovská stránka</title>
-    <link rel="stylesheet" th:href="@{style.css}" />
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-    <header>
-        <h1>Vítej, <span th:text="${name}"></span> <span th:text="${surname}"></span></h1>
-    </header>
+<header>
+    <img src="/logo.png" alt="logo" class="logo">
+    <h2>online bankovnictví</h2>
+</header>
 <main>
-    <div class = "side-info">
-        <h2>Informace</h2>
-        <p>Vaše klientské číslo: <span th:text="${id}"></span></p>
-        <a href="/logout">Odhlásit se</a>
-    </div>
-    <div class = "accounts">
+    <div class="center">
+        <div class = "side-info">
+            <h2>Vítej, <span th:text="${name}"></span> <span th:text="${surname}"></span></h2>
+            <h3>Informace</h3>
+            <p>Vaše klientské číslo: <span th:text="${id}"></span></p>
+            <a href="/logout"><button class="submit">Odhlásit se</button></a>
+        </div>
+        <div class = "accounts">
             <h2>Kliknutím na tlačítko vytvoříte účet</h2>
-            <a href="/createAcc"><button>Založit</button></a>
-            <div th:each="ucet : ${ucty}" class="accounts-info">
-                <h2 th:text="${'Číslo účtu: ' + ucet.id}" class="account-h2"></h2>
-                <h3 th:text="${ucet.balance + ' ' + ucet.currency}" class="account-currency"></h3>
-                <form th:action="@{/deposit}" method="post" class="account-form">
-                    <input type="hidden" name="idUcet" th:value="${ucet.id}">
-                    <input type="submit" name="vklad" id="vklad" value="Vklad" class="button-home-form">
-                </form>
-                <form th:action="@{pay}" method="post" class="account-form">
-                    <input type="hidden" name="idUcet" th:value="${ucet.id}"/>
-                    <input type="submit" name="platba" id="platba" value="Platba" class="button-home-form">
-                </form>
-                <form th:action="@{/transactions}" method="post" class="account-form">
-                    <input type="hidden" name="idUcet" th:value="${ucet.id}"/>
-                    <input type="submit" name="vypis" id="vypis" value="Výpis účtu" class="button-home-form">
-                </form>
+            <a href="/createAcc"><button class="buttonRegular">Založit</button></a>
+            <table class="accounts-info">
+                    <tr>
+                        <th>Číslo účtu</th>
+                        <th>Zůstatek</th>
+                        <th>Měna</th>
+                        <th>Volby</th>
+                    </tr>
+                    <tr th:each="account : ${accounts}">
+                        <td th:text="${account.id}"></td>
+                        <td th:text="${account.balance}"></td>
+                        <td th:text="${account.currency}"></td>
+                        <td class="accounts-buttons">
+                            <form th:action="@{/deposit}" method="post">
+                                <input type="hidden" name="idAcc" th:value="${account.id}">
+                                <input type="submit" value="Vklad" class="buttonRegular">
+                            </form>
+                            <form th:action="@{/pay}" method="post">
+                                <input type="hidden" name="idAcc" th:value="${account.id}"/>
+                                <input type="submit" value="Platba" class="buttonRegular">
+                            </form>
+                            <form th:action="@{/transactions}" method="post">
+                                <input type="hidden" name="idAcc" th:value="${account.id}"/>
+                                <input type="submit" value="Výpis účtu" class="buttonRegular">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
             </div>
+        </div>
+
     </div>
+
 </main>
 </body>
 </html>
