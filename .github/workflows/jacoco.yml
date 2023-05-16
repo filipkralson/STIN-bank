@@ -32,40 +32,17 @@ jobs:
         cd Bank
         mvn clean test
 
-    - name: Generate JaCoCo badge
-      id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2
-      with:
-        badges-directory: badges
-        generate-branches-badge: true
-        generate-summary: true
+    - name: Generate Jacoco report
+      run: mvn jacoco:report
 
-    - name: Log coverage percentages to workflow output
+    - name: Start jacoco-badge-generator
       run: |
-        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-        echo "branches = ${{ steps.jacoco.outputs.branches }}"
+        docker run --name jacoco-badge-generator -v "${PWD}/target/site/jacoco:/jacoco" cicirello/jacoco-badge-generator@v2 \
+        "/jacoco/jacoco.csv" "badges" "jacoco.svg" "branches.svg" "true" "true" "fail" "0" "0" "false" "false" \
+        "100 90 80 70 60 0" "#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44" "false" "false" "jacoco.json" "branches.json" \
+        "true" "coverage-summary.json" "coverage" "branches"
 
-    - name: Upload JaCoCo coverage report as a workflow artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: jacoco-report
-        path: target/site/jacoco/
-
-
-    - name: Comment on PR with coverage percentages
-      if: ${{ github.event_name == 'pull_request' }}
+    - name: Add badge to README
       run: |
-        REPORT=$(<badges/coverage-summary.json)
-        COVERAGE=$(jq -r '.coverage' <<< "$REPORT")%
-        BRANCHES=$(jq -r '.branches' <<< "$REPORT")%
-        NEWLINE=$'\n'
-        BODY="## JaCoCo Test Coverage Summary Statistics${NEWLINE}* __Coverage:__ ${COVERAGE}${NEWLINE}* __Branches:__ ${BRANCHES}"
-        gh pr comment ${{github.event.pull_request.number}} -b "${BODY}"
-      continue-on-error: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Get the Coverage info
-      run: |
-        echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
-        echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
+        echo "[![Coverage](./badges/jacoco.svg)](./target/site/jacoco/index.html)" >> README.md
+        echo "[![Branches](./badges/branches.svg)](./target/site/jacoco/index.html)" >> README.md
