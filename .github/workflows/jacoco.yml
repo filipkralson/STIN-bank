@@ -30,7 +30,7 @@ jobs:
     - name: Build with Maven
       run: |
         cd Bank
-        mvn -B package -Pcoverage
+        mvn clean test
 
     - name: Generate JaCoCo badge
       id: jacoco
