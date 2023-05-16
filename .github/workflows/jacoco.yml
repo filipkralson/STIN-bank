@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Set up database
       run: |
-        docker run -e --name mydatabase "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=admin123" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+        docker run -e --name bankDatabase "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=admin123" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
         sleep 10
         
     - name: Checkout
@@ -28,7 +28,7 @@ jobs:
         java-version: '17'
         
     - name: Connect to database
-      run: docker exec -it mydatabase /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P admin123 -Q "CREATE DATABASE mydatabase;"
+      run: docker exec -it bankDatabase /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P admin123 -Q "CREATE DATABASE mydatabase;"
 
     - name: Build with Maven
       run: |
