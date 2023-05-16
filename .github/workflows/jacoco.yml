@@ -30,6 +30,11 @@ jobs:
       run: |
         cd Bank
         mvn -B package -Pcoverage
+        
+    - name: Generate JaCoCo report
+      run: |
+        cd Bank
+        mvn jacoco:report
 
     - name: Generate JaCoCo badge
       id: jacoco
