@@ -28,7 +28,7 @@ jobs:
         java-version: '17'
         
     - name: Connect to database
-      run: docker exec -it bankDatabase /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P admin123 -Q "CREATE DATABASE mydatabase;"
+      run: docker exec -i bankDatabase /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P admin123 -Q "CREATE DATABASE mydatabase;"
 
     - name: Build with Maven
       run: |
