@@ -24,6 +24,14 @@ public class Account {
         this.id = id;
     }
 
+    public double getBalance() {
+        return balance;
+    }
+
+    public String getBalanceRounded() {
+        return String.format("%.2f", balance);
+    }
+
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
@@ -69,17 +77,15 @@ public class Account {
         this.user = user;
     }
 
-    public double getBalance() {
-        return balance;
-    }
-
     public void setBalance(double _balance) {
         this.balance += _balance;
     }
 
-    public void pay(double amount){
+    public void pay(double amount) throws Exception {
         if((this.balance - amount) >= 0){
             this.balance -= amount;
+        } else {
+            throw new Exception();
         }
     }
 }

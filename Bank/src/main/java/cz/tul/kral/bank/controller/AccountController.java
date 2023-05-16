@@ -22,7 +22,8 @@ public class AccountController {
     @PostMapping("/create-account")
     public String processCreateAccount(@RequestParam("currency") String currency, HttpSession session) {
         Account accountNew = new Account();
-        User user = userService.getUserById(Integer.parseInt(session.getAttribute("user").toString()));
+        int idUser = Integer.parseInt(session.getAttribute("user").toString());
+        User user = userService.getUserById(idUser);
         accountNew.setCurrency(currency);
         accountNew.setBalance(0);
         if (user != null) {
@@ -33,5 +34,13 @@ public class AccountController {
             return "redirect:/home";
         }
         return null;
+    }
+
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

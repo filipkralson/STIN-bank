@@ -27,7 +27,7 @@ public class TransactionController {
     @PostMapping("/transaction-deposit")
     public String deposit(@RequestParam("insert") double insert, HttpServletRequest request, HttpSession session) {
         String currency = request.getParameter("currency");
-        int id = Integer.parseInt((String) session.getAttribute("idUser"));
+        int id = Integer.parseInt((String) session.getAttribute("idAcc"));
         Account account = accountService.getAccountById(id);
         Transaction transaction = new Transaction();
         transaction.setType("Vklad");
@@ -38,17 +38,17 @@ public class TransactionController {
         if (account.getCurrency().equals(currency)) {
             transaction.setValue(insert);
             account.setBalance(insert);
-        } else if ((account.getCurrency().equals("CZK"))) {
-            double czkInsert = currencyExchangeRate.getExchangeRate() * insert;
+        } else if ((account.getCurrency().equals("CZK")) && !(currency.equals("CZK"))) {
+            double czkInsert = currencyExchangeRate.getExchangeRate() * (insert / currencyExchangeRate.getAmount());
             transaction.setValue(czkInsert);
             account.setBalance(czkInsert);
         } else if ((currency.equals("CZK")) && !(account.getCurrency().equals("CZK"))) {
-            double czkInsert = insert / conversionMaker.getExchangeRate();
+            double czkInsert = (insert / conversionMaker.getExchangeRate()) * conversionMaker.getAmount();
             transaction.setValue(czkInsert);
             account.setBalance(czkInsert);
         } else {
-            double czkInsert = insert * currencyExchangeRate.getExchangeRate();
-            double conversion = conversionMaker.getExchangeRate();
+            double czkInsert = (insert / currencyExchangeRate.getAmount()) * currencyExchangeRate.getExchangeRate();
+            double conversion = conversionMaker.getExchangeRate() * ((double) 1 / conversionMaker.getAmount());
             double convertedAmount = czkInsert / conversion;
             transaction.setValue(convertedAmount);
             account.setBalance(convertedAmount);
@@ -63,7 +63,7 @@ public class TransactionController {
     @PostMapping("/transaction-pay")
     public String pay(@RequestParam("insert") double amount, HttpServletRequest request, @RequestParam("recipient_account") String recipient_account,HttpSession session, Model model){
         String currency = request.getParameter("currency");
-        int id = Integer.parseInt((String) session.getAttribute("idUser"));
+        int id = Integer.parseInt((String) session.getAttribute("idAcc"));
         Account account = accountService.getAccountById(id);
         Transaction transaction = new Transaction();
         transaction.setType("Platba");
@@ -74,23 +74,42 @@ public class TransactionController {
 
         if(account.getCurrency().equals(currency)) {
             transaction.setValue(amount);
-            account.pay(amount);
+            try {
+                account.pay(amount);
+            } catch (Exception e) {
+                model.addAttribute("error", "Nedostatek prostředků");
+                return "transaction-pay";
+            }
         } else if ((currency.equals("CZK")) && !(account.getCurrency().equals("CZK"))) {
-            double newAmount = amount / conversionMaker.getExchangeRate();
+            double newAmount = (amount / conversionMaker.getExchangeRate()) * conversionMaker.getAmount();
             transaction.setValue(newAmount);
-            account.pay(newAmount);
-        } else if ((account.getCurrency().equals("CZK"))) {
-            double czkInsert = currencyExchangeRate.getExchangeRate() * amount;
+            try {
+                account.pay(newAmount);
+            } catch (Exception e) {
+                model.addAttribute("error", "Nedostatek prostředků");
+                return "transaction-pay";
+            }
+        } else if ((account.getCurrency().equals("CZK")) && !(currency.equals("CZK"))) {
+            double czkInsert = currencyExchangeRate.getExchangeRate() * (amount / currencyExchangeRate.getAmount());
             transaction.setValue(czkInsert);
-            account.pay(czkInsert);
+            try {
+                account.pay(czkInsert);
+            } catch (Exception e) {
+                model.addAttribute("error", "Nedostatek prostředků");
+                return "transaction-pay";
+            }
         } else {
-            double czkInsert = amount * currencyExchangeRate.getExchangeRate();
-            double conversion = conversionMaker.getExchangeRate();
+            double czkInsert = (amount / currencyExchangeRate.getAmount())* currencyExchangeRate.getExchangeRate();
+            double conversion = conversionMaker.getExchangeRate() * ((double) 1 / conversionMaker.getAmount());
             double convertedAmount = czkInsert / conversion;
             transaction.setValue(convertedAmount);
-            account.pay(convertedAmount);
+            try {
+                account.pay(convertedAmount);
+            } catch (Exception e) {
+                model.addAttribute("error", "Nedostatek prostředků");
+                return "transaction-pay";
+            }
         }
-
         account.setTransactions(transaction);
         transactionService.createTransaction(transaction);
         accountService.createAccount(account);
@@ -99,20 +118,20 @@ public class TransactionController {
         }
 
     @PostMapping("/deposit")
-    public String processTransactionDeposit(@RequestParam("idUser") String id, HttpSession session){
-        session.setAttribute("idUser", id);
+    public String processTransactionDeposit(@RequestParam("idAcc") String id, HttpSession session){
+        session.setAttribute("idAcc", id);
         return "redirect:/transaction-deposit";
     }
 
     @PostMapping("/pay")
-    public String processTransactionPay(@RequestParam("idUser") String id, HttpSession session){
-        session.setAttribute("idUser", id);
+    public String processTransactionPay(@RequestParam("idAcc") String id, HttpSession session){
+        session.setAttribute("idAcc", id);
         return "redirect:/transaction-pay";
     }
 
     @PostMapping("/transactions")
-    public String processTransactions(@RequestParam("idUser") String id, HttpSession session){
-        session.setAttribute("idUser", id);
+    public String processTransactions(@RequestParam("idAcc") String id, HttpSession session){
+        session.setAttribute("idAcc", id);
         return "redirect:/transactions";
     }
 
@@ -122,5 +141,9 @@ public class TransactionController {
 
     public void setTransactionService(TransactionService _transactionService) {
         transactionService = _transactionService;
+    }
+
+    public void setCurrencyExchangeRateService(CurrencyExchangeRateService currencyExchangeRateService) {
+        this.currencyExchangeRateService = currencyExchangeRateService;
     }
 }

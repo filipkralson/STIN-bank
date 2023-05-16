@@ -30,7 +30,7 @@
                     </tr>
                     <tr th:each="account : ${accounts}">
                         <td th:text="${account.id}"></td>
-                        <td th:text="${account.balance}"></td>
+                        <td th:text="${account.getBalanceRounded()}"></td>
                         <td th:text="${account.currency}"></td>
                         <td class="accounts-buttons">
                             <form th:action="@{/deposit}" method="post">

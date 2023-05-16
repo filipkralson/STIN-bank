@@ -16,6 +16,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public int getMaxId() {
+        return userRepository.findMaxId();
+    }
+
     public User getUserById(int userId) {
         return userRepository.findById(userId);
     }

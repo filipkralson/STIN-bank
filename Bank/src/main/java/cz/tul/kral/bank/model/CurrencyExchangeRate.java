@@ -1,11 +1,15 @@
 package cz.tul.kral.bank.model;
 
-import java.math.BigDecimal;
+import jakarta.persistence.*;
 
+@Entity(name = "CurrencyExchangeRates")
 public class CurrencyExchangeRate {
 
-    private double exchangeRate;
+    @Id
     private String currencyCode;
+
+    private double exchangeRate;
+
     private int amount;
 
     public CurrencyExchangeRate() {

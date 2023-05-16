@@ -41,7 +41,7 @@ public class UserControllerTest {
                         .param("email", "john.doe@example.com")
                         .param("password", "secret"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login"));
+                .andExpect(redirectedUrl("/login?userId=0"));
 
         verify(userService, times(1)).createUser(any(User.class));
     }

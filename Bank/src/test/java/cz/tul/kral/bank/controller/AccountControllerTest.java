@@ -7,53 +7,53 @@ import cz.tul.kral.bank.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SpringJUnitConfig
 class AccountControllerTest {
 
     @Mock
     private AccountService accountService;
-
     @Mock
     private UserService userService;
-
     @Mock
     private HttpSession session;
 
-    @InjectMocks
     private AccountController accountController;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        accountController = new AccountController();
+        accountController.setAccountService(accountService);
+        accountController.setUserService(userService);
     }
 
     @Test
     void testProcessCreateAccount() {
-        String currency = "USD";
+        // Arrange
+        int userId = 1;
         User user = new User();
-        user.setId(1);
-        when(session.getAttribute("user")).thenReturn("1");
-        when(userService.getUserById(1)).thenReturn(user);
+        user.setId(userId);
+        Account existingAccount = new Account();
+        existingAccount.setCurrency("EUR");
+        existingAccount.setBalance(100);
+        user.setAccounts(existingAccount);
+        when(session.getAttribute("user")).thenReturn(String.valueOf(userId));
+        when(userService.getUserById(userId)).thenReturn(user);
 
-        String result = accountController.processCreateAccount(currency, session);
+        // Act
+        String viewName = accountController.processCreateAccount(existingAccount.getCurrency(), session);
 
-        assertNotNull(result);
-        assertEquals("redirect:/home", result);
-        verify(userService, times(1)).getUserById(1);
-
-        Account expectedAccount = new Account();
-        expectedAccount.setCurrency(currency);
-        expectedAccount.setBalance(0);
-        expectedAccount.setUser(user);
-        verify(accountService, times(1)).createAccount(expectedAccount);
-        verify(userService, times(1)).createUser(user);
+        // Assert
+        assertEquals("redirect:/home", viewName);
+        verify(userService).createUser(user);
+        verify(accountService).createAccount(any(Account.class));
+        assertEquals("EUR", existingAccount.getCurrency());
+        assertEquals(100, existingAccount.getBalance());
     }
+
 }

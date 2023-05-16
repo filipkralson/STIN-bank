@@ -3,7 +3,10 @@ package cz.tul.kral.bank.controller;
 import cz.tul.kral.bank.model.Account;
 import cz.tul.kral.bank.model.User;
 import cz.tul.kral.bank.service.AccountService;
+import cz.tul.kral.bank.service.CurrencyExchangeRateService;
 import cz.tul.kral.bank.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,13 +15,15 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -30,8 +35,23 @@ public class BankControllerTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private HttpSession session;
+
+    @Mock
+    private HttpServletRequest request;
+
+    @Mock
+    private AccountService accountService;
+
+    @Mock
+    private Model model;
+
     @InjectMocks
     private BankController bankController;
+
+    @Mock
+    private CurrencyExchangeRateService currencyExchangeRateService;
 
     @BeforeEach
     public void setup() {
@@ -46,6 +66,7 @@ public class BankControllerTest {
     @Test
     public void testShowHomePage() throws Exception {
         MockHttpSession session = new MockHttpSession();
+        currencyExchangeRateService.updateExchangeRates();
         session.setAttribute("user", "1");
         User user = new User();
         user.setId(1);
@@ -68,7 +89,7 @@ public class BankControllerTest {
                 .andExpect(model().attribute("name", "John"))
                 .andExpect(model().attribute("surname", "Doe"))
                 .andExpect(model().attribute("id", 1))
-                .andExpect(model().attribute("ucty", accounts));
+                .andExpect(model().attribute("accounts", accounts));
     }
 
     @Test
@@ -98,4 +119,73 @@ public class BankControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("verification"));
     }
+
+    @Test
+    void testShowRegisterPage() {
+        // Act
+        String viewName = bankController.showRegisterPage();
+
+        // Assert
+        assertEquals("register", viewName);
+    }
+
+    @Test
+    void testLogout() {
+        // Arrange
+        when(request.getSession()).thenReturn(session);
+
+        // Act
+        String viewName = bankController.logout(request);
+
+        // Assert
+        assertEquals("redirect:/login", viewName);
+        verify(session).setAttribute("user", null);
+    }
+
+    @Test
+    void testShowDeposit() {
+        // Act
+        String viewName = bankController.showDeposit();
+
+        // Assert
+        assertEquals("transaction-deposit", viewName);
+    }
+
+    @Test
+    void testShowPay() {
+        // Act
+        String viewName = bankController.showPay();
+
+        // Assert
+        assertEquals("transaction-pay", viewName);
+    }
+
+    @Test
+    void testShowLogPage() {
+        // Arrange
+        int accountId = 1;
+        Account account = new Account();
+        account.setId(accountId);
+        when(session.getAttribute("idAcc")).thenReturn(String.valueOf(accountId));
+        when(accountService.getAccountById(accountId)).thenReturn(account);
+
+        // Act
+        String viewName = bankController.showLogPage(session, model);
+
+        // Assert
+        assertEquals("transactions", viewName);
+        verify(model).addAttribute("accNum", accountId);
+        verify(model).addAttribute("transactions", account.getTransactions());
+    }
+
+    @Test
+    void testShowBack() {
+        // Act
+        String viewName = bankController.showBack();
+
+        // Assert
+        assertEquals("redirect:/home", viewName);
+    }
+
+
 }

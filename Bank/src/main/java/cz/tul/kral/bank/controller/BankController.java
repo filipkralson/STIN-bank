@@ -22,13 +22,11 @@ public class BankController {
     private AccountService accountService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private CurrencyExchangeRateService currencyExchangeRateService;
 
     @GetMapping("/home")
-    public String showHomePage(Model model, HttpSession session) throws IOException, ParseException {
-        User user = userService.getUserById(Integer.parseInt(session.getAttribute("user").toString()));
-        currencyExchangeRateService.updateExchangeRates();
+    public String showHomePage(Model model, HttpSession session) {
+        int idUser = Integer.parseInt(session.getAttribute("user").toString());
+        User user = userService.getUserById(idUser);
         model.addAttribute("name", user.getFirstName());
         model.addAttribute("surname", user.getLastName());
         model.addAttribute("id", user.getId());
@@ -49,11 +47,6 @@ public class BankController {
     @GetMapping("/createAcc")
     public String showCreateAccountRedirect() {
         return "redirect:/create-account";
-    }
-
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";
     }
 
     @GetMapping("/verification")
@@ -81,6 +74,14 @@ public class BankController {
     @GetMapping("/transaction-pay")
     public String showPay() {
         return "transaction-pay";
+    }
+
+    @GetMapping("/login")
+    public String showLoginPage(@RequestParam(value = "userId", required = false) Integer userId, Model model){
+        if(userId != null){
+            model.addAttribute("userId", userId);
+        }
+        return "login";
     }
 
     @GetMapping("/transactions")

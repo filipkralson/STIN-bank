@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity(name = "Users")
 public class User {
@@ -76,6 +77,5 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
-
 }
 

@@ -15,7 +15,7 @@
     <form action="/transaction-pay" method="post" class="form">
         <span class="title">Zaplatit</span>
         <div class="form-container">
-            <input type="number" name="insert" id="insert" class="input" placeholder="Částka">
+            <input type="number" name="insert" id="insert" class="input" placeholder="Částka" min="1">
         </div>
             <div class="form-containerAcc">
             <label for="currency">Měna: </label>
@@ -55,11 +55,12 @@
             </select>
             </div>
             <div class="form-container">
-                <input type="number" class="input" name="recipient_account" id="recipient_account" placeholder="Účet příjemnce" required>
+                <input type="number" class="input" name="recipient_account" id="recipient_account" placeholder="Účet příjemnce" required min="1">
             </div>
         <input class="submit" type="submit" name="submit" id="submit" value="Odeslat">
-        <a href="/back"><button class="submitBack">Zpět</button></a>
     </form>
+        <a href="/back"><button class="submitBack">Zpět</button></a>
+        <span th:text="${error}"></span>
     </div>
 </main>
 

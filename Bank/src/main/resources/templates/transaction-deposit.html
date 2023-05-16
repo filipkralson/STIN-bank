@@ -15,7 +15,7 @@
     <form action="/transaction-deposit" method="post" class="form">
         <span class="title">Vložit peníze</span>
         <div class="form-container">
-            <input type="number" name="insert" id="insert" class="input" placeholder="Částka" required>
+            <input type="number" name="insert" id="insert" class="input" placeholder="Částka" required min="1">
         </div>
             <div class="form-containerAcc">
                 <label for="currency">Měna:</label>
@@ -55,10 +55,8 @@
                 </select>
             </div>
         <input class="submit" type="submit" name="submit" id="submit" value="Odeslat">
-        <a href="/back"><button class="submitBack">Zpět</button></a>
-    </form>
+    </form><a href="/back"><button class="submitBack">Zpět</button></a>
     </div>
-
 </main>
 
 </body>

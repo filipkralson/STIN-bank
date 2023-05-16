@@ -17,7 +17,7 @@
             <form class="form" action="/login" method="post">
                 <span class="title">Přihlásit se</span>
                 <div class="form-container">
-                    <input type="number" class="input" name="id" id="id" placeholder="Klientské číslo" required>
+                    <input type="number" class="input" name="id" id="id" placeholder="Klientské číslo" required th:value="${userId}">
                     <input type="password" class="input" placeholder="Heslo" name="password" id="password">
                 </div>
                 <input class="submit" type="submit" name="submit" id="submit" value="Přihlásit">

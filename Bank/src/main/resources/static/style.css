@@ -27,6 +27,7 @@ header {
     margin-left: 40%;
     margin-right: 40%;
     margin-top: 5%;
+    text-align: center;
     background: #E5F4E3;
     border-radius: 16px;
     color: #010101;
@@ -76,7 +77,9 @@ header {
     justify-content: center;
     flex-direction: column;
     margin-left: 10%;
+    padding: 25px;
     margin-right: 10%;
+    text-align: left;
     margin-top: 5%;
     background: #E5F4E3;
     border-radius: 16px;
@@ -87,6 +90,7 @@ header {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    margin-bottom: 5%;
 }
 
 .side-info {
@@ -95,6 +99,7 @@ header {
     flex-direction: column;
     margin-right: 2%;
     margin-top: 5%;
+    height: 45%;
     padding: 32px 24px 24px;
     background: #6d326d;
     border-radius: 16px;
@@ -125,6 +130,7 @@ header {
     padding: 32px 24px 24px;
     border-radius: 16px;
     color: #010101;
+    text-align: center;
 }
 
 .accounts-buttons {
@@ -151,6 +157,8 @@ header {
 .transactions h1 {
     text-align: center;
 }
+
+.form-section {}
 
 .input {
     background: #fff;

@@ -4,39 +4,78 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class AccountTest {
 
     private Account account;
 
+    private User user;
+
     @BeforeEach
     void setUp() {
+        user = new User();
+        user.setId(1);
         account = new Account();
         account.setCurrency("CZK");
-        account.setUser(new User());
+        account.setUser(user);
         account.setBalance(1000);
     }
-
-    /*
-        @Test
-    void testPay() {
-        boolean result = account.pay(500);
-        Assertions.assertTrue(result);
-        Assertions.assertEquals(500, account.getBalance());
-    }
-
-    @Test
-    void testPayInvalidAmount() {
-        boolean result = account.pay(2000);
-        Assertions.assertFalse(result);
-        Assertions.assertEquals(1000, account.getBalance());
-    }
-     */
 
 
     @Test
     void testSetTransactions() {
         Transaction transaction = new Transaction();
         account.setTransactions(transaction);
-        Assertions.assertEquals(1, account.getTransactions().size());
+        assertEquals(1, account.getTransactions().size());
+    }
+
+    @Test
+    public void testPaySufficientBalance() throws Exception {
+        // Arrange
+        double amount = 50.0;
+
+        // Act
+        account.pay(amount);
+
+        // Assert
+        assertEquals(950.0, account.getBalance());
+    }
+
+    @Test
+    public void testPayInsufficientBalance() {
+        // Arrange
+        double amount = 1050.0;
+
+        // Assert
+        assertThrows(Exception.class, () -> account.pay(amount));
+    }
+
+    @Test
+    public void testGetUser() {
+        // Act
+        User result = account.getUser();
+
+        // Assert
+        assertEquals(user, result);
+    }
+
+    @Test
+    public void testGetId() {
+        // Act
+        int result = user.getId();
+
+        // Assert
+        assertEquals(1, result);
+    }
+
+    @Test
+    public void testGetCurrency() {
+        // Act
+        String result = account.getCurrency();
+
+        // Assert
+        assertEquals("CZK", result);
     }
 }
