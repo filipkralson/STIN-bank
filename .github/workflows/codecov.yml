@@ -28,6 +28,9 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
+          
+      - name: Start MySQL container
+        run: docker-compose up -d db
 
       - name: Build and test
         run: |
