@@ -3,7 +3,6 @@ package cz.tul.kral.bank.controller;
 import cz.tul.kral.bank.model.Account;
 import cz.tul.kral.bank.model.User;
 import cz.tul.kral.bank.service.AccountService;
-import cz.tul.kral.bank.service.CurrencyExchangeRateService;
 import cz.tul.kral.bank.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -11,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.text.ParseException;
 
 @Controller
 public class BankController {

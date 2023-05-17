@@ -9,4 +9,4 @@ codecov:
         comment:
           layout: "header, diff, files"
     files:
-      - ./target/site/jacoco.exec
+      - ./target/jacoco.exec

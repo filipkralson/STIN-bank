@@ -18,7 +18,6 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
-
     @PostMapping("/create-account")
     public String processCreateAccount(@RequestParam("currency") String currency, HttpSession session) {
         Account accountNew = new Account();
