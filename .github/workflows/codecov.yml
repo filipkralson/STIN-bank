@@ -9,15 +9,6 @@ on:
 jobs:
     build-and-test:
       runs-on: ubuntu-latest
-
-      services:
-        db:
-          image: mcr.microsoft.com/mssql/server:2019-latest
-          env:
-            ACCEPT_EULA: Y
-            SA_PASSWORD: admin123
-          ports:
-            - 1433:1433
           
       steps:
       - name: Checkout code
@@ -28,11 +19,17 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
-
-      - name: Build and test
+          
+      - name: Start MSSQL container
         run: |
           cd Bank
-          mvn clean test
+          docker-compose up -d
+
+      - name: Build and test
+        run: mvn clean test
+          
+      - name: Stop MSSQL container
+        run: docker-compose down
       
     codecov:
       needs: build-and-test
