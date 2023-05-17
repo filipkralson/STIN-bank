@@ -26,10 +26,14 @@ jobs:
           docker-compose up -d
 
       - name: Build and test
-        run: mvn clean test
+        run: |
+          cd Bank
+          mvn clean test
           
       - name: Stop MSSQL container
-        run: docker-compose down
+        run: |
+          cd Bank
+          docker-compose down
       
     codecov:
       needs: build-and-test
