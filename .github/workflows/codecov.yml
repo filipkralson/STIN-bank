@@ -9,7 +9,16 @@ on:
 jobs:
     build-and-test:
       runs-on: ubuntu-latest
-          
+      
+      services:
+        db:
+          image: mcr.microsoft.com/mssql/server:2022-latest
+          env:
+            ACCEPT_EULA: Y
+            SA_PASSWORD: admin123
+          ports:
+            - 1433:1433
+            
       steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,21 +28,11 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
-          
-      - name: Start MSSQL container
-        run: |
-          cd Bank
-          docker-compose up -d
 
       - name: Build and test
         run: |
           cd Bank
           mvn clean test
-          
-      - name: Stop MSSQL container
-        run: |
-          cd Bank
-          docker-compose down
       
     codecov:
       needs: build-and-test
