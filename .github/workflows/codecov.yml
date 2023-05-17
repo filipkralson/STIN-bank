@@ -21,9 +21,7 @@ jobs:
           java-version: '17'
 
       - name: Build and test
-        run: |
-          cd Bank
-          mvn clean test -Dmaven.test.failure.ignore=true
+        run: mvn clean test -Dmaven.test.failure.ignore=true
       
     codecov:
       needs: build-and-test
