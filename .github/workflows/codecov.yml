@@ -26,7 +26,6 @@ jobs:
           docker-compose up -d
           sleep 30
 
-      - name: Verify IP address
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
