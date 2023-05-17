@@ -9,19 +9,21 @@ on:
 jobs:
     build-and-test:
       runs-on: ubuntu-latest
-      
-      services:
-        db:
-          image: mcr.microsoft.com/mssql/server:2019-latest
-          env:
-            ACCEPT_EULA: Y
-            SA_PASSWORD: admin123
-          ports:
-            - 1433:1433
             
       steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up Docker Compose
+        uses: docker/compose-action@v1
+        with:
+          compose-file: docker-compose.yml
+
+      - name: Start MSSQL container
+        run: |
+          cd Bank
+          docker-compose up -d
+          sleep 30
         
       - name: Set up JDK 17
         uses: actions/setup-java@v3
