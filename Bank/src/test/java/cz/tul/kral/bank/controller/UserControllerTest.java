@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringJUnitConfig
 @WebMvcTest(UserController.class)
-@TestPropertySource(locations = "classpath:application-test.properties")
 public class UserControllerTest {
 
     @Autowired

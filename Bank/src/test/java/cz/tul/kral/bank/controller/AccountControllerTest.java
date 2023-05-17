@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.properties")
 class AccountControllerTest {
 
     @Mock

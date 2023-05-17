@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringJUnitConfig
-@TestPropertySource(locations = "classpath:application-test.properties")
 public class BankControllerTest {
 
     private MockMvc mockMvc;
