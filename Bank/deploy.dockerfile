@@ -3,6 +3,9 @@ FROM openjdk:17-jdk
 
 WORKDIR /usr/src/app
 
+COPY mvnw .
+COPY .mvn .mvn
+
 COPY pom.xml .
 
 RUN ./mvnw dependency:go-offline
