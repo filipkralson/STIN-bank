@@ -9,15 +9,3 @@ services:
       - 1433:1433
     volumes:
       - ./data:/var/opt/mssql
-  app:
-    build:
-      context: .
-      dockerfile: deploy.dockerfile
-    depends_on:
-      - db
-    volumes:
-      - ./app:/usr/src/app
-    working_dir: /usr/src/app
-    command: mvn clean test
-    ports:
-      - 8080:8080

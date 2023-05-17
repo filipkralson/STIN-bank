@@ -37,7 +37,7 @@ jobs:
       - name: Build and test
         run: |
           cd Bank
-          mvn clean test
+          mvn clean test -Dspring.profiles.active=test
       
     codecov:
       needs: build-and-test
