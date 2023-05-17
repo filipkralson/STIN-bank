@@ -29,11 +29,6 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Start MSSQL container
-        run: |
-          cd Bank
-          docker-compose up -d db
-
       - name: Build and test
         run: |
           cd Bank
