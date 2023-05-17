@@ -1,5 +1,5 @@
 # Použití oficiálního obrazu pro Java s JDK
-FROM openjdk:11-jdk
+FROM openjdk:17-jdk
 
 # Instalace Heroku CLI
 RUN apt-get update && apt-get install -y curl apt-transport-https
