@@ -1,7 +1,8 @@
-FROM openjdk:17-jdk
+FROM ubuntu:latest
 
+# Install Java JDK and Maven
 RUN apt-get update && \
-    apt-get install -y maven
+    apt-get install -y openjdk-17-jdk maven
 
 WORKDIR /usr/src/app
 
