@@ -21,14 +21,12 @@ jobs:
       - name: Set up Docker Compose
         run: |
           export MSSQL_HOST=${{ steps.get_host_ip.outputs.host_ip }}
+          echo $MSSQL_HOST
           cd Bank
           docker-compose up -d
           sleep 30
 
       - name: Verify IP address
-        run:
-          echo "MSSQL_HOST: $MSSQL_HOST"
-        
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
