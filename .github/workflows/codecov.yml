@@ -25,7 +25,6 @@ jobs:
           cd Bank
           docker-compose up -d
           sleep 30
-          sleep 30
           sed -i "s|jdbc:sqlserver://localhost:1433;|jdbc:sqlserver://$MSSQL_HOST:1433;|g" src/main/resources/application.properties
 
       - name: Set up JDK 17
