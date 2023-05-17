@@ -10,12 +10,16 @@ jobs:
     build-and-test:
       runs-on: ubuntu-latest
 
-      steps:
-      - name: Set up database
-        run: |
-          docker run --name bankDatabase -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=admin123" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
-          sleep 10
+      services:
+        db:
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          env:
+            ACCEPT_EULA: Y
+            SA_PASSWORD: admin123
+          ports:
+            - 1433:1433
           
+      steps:
       - name: Checkout code
         uses: actions/checkout@v3
         
