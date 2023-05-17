@@ -7,15 +7,31 @@ on:
     branches: [ main ]
 
 jobs:
-  codecov:
-    runs-on: ubuntu-latest
+    build-and-test:
+      runs-on: ubuntu-latest
 
-    steps:    
+      steps:
       - name: Set up database
         run: |
           docker run --name bankDatabase -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=admin123" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
           sleep 10
+          
+      - name: Checkout code
+        uses: actions/checkout@v2
         
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+
+      - name: Build and test
+        run: mvn clean test
+      
+    codecov:
+      needs: build-and-test
+      runs-on: ubuntu-latest
+
+      steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -24,12 +40,5 @@ jobs:
         with:
           java-version: 17
 
-      - name: Build and test
-        run: |
-          cd Bank
-          mvn clean test
-
-      - name: Upload coverage report
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage report to Codecov
+        run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
