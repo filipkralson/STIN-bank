@@ -1,23 +1,21 @@
-FROM ubuntu:latest
+# Použití oficiálního obrazu pro Java s JDK
+FROM openjdk:11-jdk
 
-# Install Java JDK and Maven
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk maven
+# Instalace Heroku CLI
+RUN apt-get update && apt-get install -y curl apt-transport-https
+RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
-WORKDIR /usr/src/app
+# Nastavení pracovního adresáře
+WORKDIR /app
 
-COPY mvnw .
-COPY .mvn .mvn
+# Kopírování zdrojových souborů do kontejneru
+COPY . /app
 
-COPY pom.xml .
+# Sestavení aplikace
+RUN ./mvnw clean package
 
-RUN chmod +x mvnw
-
-RUN ./mvnw dependency:go-offline
-
-COPY src ./src
-
-RUN ./mvnw package -DskipTests
+# Exponování portu, na kterém běží aplikace
+EXPOSE 8080
 
 # Spuštění aplikace
-CMD ["java", "-jar", "target/your-application.jar"]
+CMD ["java", "-jar", "target/myapp.jar"]
