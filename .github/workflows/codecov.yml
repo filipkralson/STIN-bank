@@ -23,11 +23,11 @@ jobs:
           export MSSQL_HOST=${{ steps.get_host_ip.outputs.host_ip }}
           cd Bank
           docker-compose up -d
+          sleep 30
 
-      - name: Wait for SQL Server to start
-        run: |
-          cd Bank
-          docker-compose exec db /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P admin123 -T
+      - name: Verify IP address
+        run:
+          echo "MSSQL_HOST: $MSSQL_HOST"
         
       - name: Set up JDK 17
         uses: actions/setup-java@v3
