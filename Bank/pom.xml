@@ -91,15 +91,15 @@
 						</goals>
 						<configuration>
 							<!-- Sets the path to the file which contains the execution data. -->
-							<dataFile>target/jacoco.exec</dataFile>
+							<dataFile>target/site/jacoco.exec</dataFile>
 							<!-- Sets the output directory for the code coverage report. -->
-							<outputDirectory>target/reports</outputDirectory>
+							<outputDirectory>target/site/reports</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
 				<configuration>
 					<systemPropertyVariables>
-						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+						<jacoco-agent.destfile>target/site/jacoco.exec</jacoco-agent.destfile>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
